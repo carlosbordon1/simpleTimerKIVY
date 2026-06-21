@@ -1,39 +1,45 @@
 from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Button
-from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.lang import Builder
+from kivy.uix.boxlayout import BoxLayout
 
-class HomeScreen(Screen):
-    def saludo(self):
-        print("Hola desde HomeScreen")
+# Definición de la interfaz usando KV Language
+KV = '''
+BoxLayout:
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: 0.2, 0.6, 0.8, 0.4  # Azul claro
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
+    Label:
+        text: "¡Simple Timer!"
+        font_size: 24
+        color: 1, 1, 1, 1
 
-#Builder.load_file("")
-modelos = Builder.load_string("""
-<HomeScreen>:
-    BoxLayout:
-        orientation: 'vertical'
-        Button:
-            text: 'Saludar de Nuevo'
-            on_press: root.saludo()
-        Label:
-            text: 'this on top'
-        Label:
-            text: 'this right aligned'
-            size_hint_x: None
-            size: self.texture_size
-            pos_hint: {'right': 1}
-        Label:
-            text: 'this on bottom'
+    Button:
+        text: "Salir"
+        size_hint_y: None
+        height: 50
+        on_press: app.cerrar_aplicacion(self)
+'''
 
-HomeScreen:
-""")
+# Clase que representa el layout
+class BoxFondo(BoxLayout):
+    pass
 
-class MyApp(App):
+# Clase principal de la aplicación
+class Aplicacion(App):
     def build(self):
+        # Carga la definición KV
+        return Builder.load_string(KV)
+    
+    # Metodo para cerrar la app correctamente
+    def cerrar_aplicacion(self, instance):
+        # Detiene la aplicación de forma segura
+        self.stop()
 
-        return modelos
-
+# Punto de entrada
 if __name__ == "__main__":
-    MyApp().run()
+    Aplicacion().run()
