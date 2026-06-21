@@ -15,7 +15,7 @@ modelos = Builder.load_string("""
     BoxLayout:
         orientation: 'vertical'
         Button:
-            text: 'Saludar'
+            text: 'Saludar boton'
             on_press: root.saludo()
         Label:
             text: 'this on top'
