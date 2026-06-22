@@ -1,0 +1,19 @@
+BoxLayout:
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: 0.2, 0.6, 0.8, 0.4  # Azul claro
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Label:
+        text: "¡Simple Timer!"
+        font_size: 24
+        color: 1, 1, 1, 1
+
+    Button:
+        text: "Salir"
+        size_hint_y: None
+        height: 50
+        on_press: app.cerrar_aplicacion(self)
