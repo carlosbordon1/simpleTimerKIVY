@@ -1,4 +1,8 @@
-BoxLayout:
+WindowManager:
+    PantallaInicial:
+    PantallaAyuda:
+
+<BoxFondo@BoxLayout>:
     orientation: 'vertical'
     canvas.before:
         Color:
@@ -7,13 +11,83 @@ BoxLayout:
             pos: self.pos
             size: self.size
 
-    Label:
-        text: "¡Simple Timer!"
-        font_size: 24
-        color: 1, 1, 1, 1
+<BarraDeAcciones@ActionBar>:
+    background_color: app.mi_color_hex
+    ActionView:
+        use_separator: True
 
-    Button:
-        text: "Salir"
-        size_hint_y: None
-        height: 50
-        on_press: app.cerrar_aplicacion(self)
+        ActionPrevious:
+            title: "Simple Timer"
+            with_previous: False
+
+        ActionOverflow:
+            icon: 'atlas://data/images/defaulttheme/overflow'
+
+            ActionButton:
+                text: 'Ajustes'
+                on_press: print('Ajustes')
+            ActionButton:
+                text: 'Ayuda'
+                on_press: app.cambiar_pantalla("pantalla_ayuda")
+            ActionButton:
+                text: 'Salir'
+                on_press: app.cerrar_aplicacion(self)
+
+<BarraDeAccionesEntrePantallas@ActionBar>:
+    ActionView:
+        use_separator: True
+        ActionPrevious:
+            title: "Modulo Ayuda/Acerca de..."
+            with_previous: False
+            ActionButton:
+                title: "Simple Timer"
+                with_previous: False
+                text: "Atras \u2190"
+                font_name: "data/fonts/DejaVuSans.ttf"
+                on_press: app.cambiar_pantalla("pantalla_inicial")
+
+<ContenetdorCentral@BoxLayout>:
+    orientation: 'vertical'
+    padding: 20
+    radius: 10
+    spacing: 10
+    size_hint: 0.6, 0.6
+    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    canvas.before:
+        Color:
+            rgba: 0.2, 0.6, 0.8, 1  # Azul claro
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+#Pantallas de la aplicación
+<PantallaInicial>:
+    name: "pantalla_inicial"
+    BoxFondo:
+    
+        BarraDeAcciones:
+        ContenetdorCentral:
+
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 20
+                border: 2
+                spacing: 10
+                background_color: 0.8, 0.8, 0.8, 1  # Gris claro con transparencia
+                Label:
+                    text: "¡Simple Timer!"
+                    font_size: 24
+                    color: 1, 1, 1, 1
+
+
+<PantallaAyuda>:
+    name: "pantalla_ayuda"
+    BoxFondo:
+        BarraDeAccionesEntrePantallas:
+        ContenetdorCentral:
+
+            Label:
+                text: "Desarrollada por Carlos Bordon"
+                font_size: 18
+                color: 1, 1, 1, 1
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
